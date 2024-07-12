@@ -2,7 +2,6 @@
 
 const express = require("express");
 const cors = require("cors");
-const crypto = require("crypto");
 
 const app = express();
 
@@ -30,29 +29,17 @@ const User = db.user;
 
 db.sequelize.sync();
 
-db.sequelize.sync({force: true}).then(() => {
-    console.log('Drop and Resync Db');
-    initial();
-    initial2();
-});
+// db.sequelize.sync({force: true}).then(() => {
+//     console.log('Drop and Resync Db');
+//     initial();
+//     initial2();
+// });
 
 // Simple route
 app.get("/", (req, res) => {
   res.json({ message: "Welcome to bezkoder application." });
 });
 
-// HMAC hash generation route
-app.post("/generate-hmac", (req, res) => {
-  const key = '7BW5uZ9vBA89ebCBo4kaebvz';
-  const message = req.body.message;
-
-  if (!message) {
-    return res.status(400).json({ error: "Message is required" });
-  }
-
-  const hash = crypto.createHmac('sha256', key).update(message).digest('hex');
-  res.json({ hash });
-});
 
 require('./app/routes/auth.routes')(app);
 require('./app/routes/user.routes')(app);

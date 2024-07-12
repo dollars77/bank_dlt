@@ -7,6 +7,7 @@ module.exports =(app)=>{
     router.get('/oneAdmin/:id',admin.getOneAdmin)
     router.put('/updateAdmin/:id',admin.updateAdmin)
     router.delete('/deleteAdmin/:id',admin.deleteAdmin)
+    router.post('/generate-hmac',admin.genHMAC)
 
     // router.post('/',Exam.createExam)
     // router.post('/retest',Exam.createExam_retest)

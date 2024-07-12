@@ -1,6 +1,19 @@
 const db = require("../models");
 const user = db.user;
 const role = db.role;
+const crypto = require("crypto");
+
+exports.genHMAC=async(req,res)=>{
+    const key = '7BW5uZ9vBA89ebCBo4kaebvz';
+    const message = req.body.message;
+  
+    if (!message) {
+      return res.status(400).json({ error: "Message is required" });
+    }
+  
+    const hash = crypto.createHmac('sha256', key).update(message).digest('hex');
+    res.json({ hash });
+}
 
 exports.getAllAdmin = async (req, res) => {
     role.findByPk(2, {
