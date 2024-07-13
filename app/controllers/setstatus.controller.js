@@ -30,7 +30,7 @@ exports.createStatus = async (req, res) => {
 };
 
 exports.getAllStatus = async (req, res) => {
-    setstatus.findAll()
+    setstatus.findAll({ order: [["id", "ASC"]], })
         .then(data => {
             res.send(data);
         }).catch(err => {
